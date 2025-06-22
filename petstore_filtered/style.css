@@ -1,0 +1,230 @@
+/* General reset */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Header styles */
+  header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Main section */
+  main {
+    padding: 2rem;
+  }
+  
+  /* Carousel container for Featured Pets */
+  .carousel-container {
+    text-align: center;
+    max-width: 300px;
+    margin: 2rem auto;
+  }
+  
+  #carousel-pet {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  #carousel-pet img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .carousel-controls {
+    margin-top: 0.5rem;
+  }
+  
+  .carousel-controls button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    margin: 0 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .carousel-controls button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Button style (shared with carousel buttons) */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Footer styles */
+  footer {
+    background-color: #eee;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .pet-list {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+  
+  .pet {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 200px;
+  }
+  
+  .pet img {
+    width: 100%;
+    height: 200px; /* Adjust as needed */
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  /* style.css additions/modifications */
+
+/* Footer styling */
+footer {
+    background-color: #2c3e50; /* Darker background for footer */
+    color: white;
+    padding: 40px 20px; /* More padding for a substantial section */
+    text-align: center;
+    margin-top: 50px; /* Space above the footer */
+}
+
+/* Flexbox container for contact info and map */
+.contact-content {
+    display: flex; /* Enable flexbox */
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+    justify-content: center; /* Center items horizontally */
+    align-items: flex-start; /* Align items to the start of the cross axis (top) */
+    gap: 40px; /* Space between the info and the map */
+    max-width: 1200px; /* Limit content width */
+    margin: 0 auto; /* Center the content */
+    margin-bottom: 30px; /* Space between content and copyright */
+}
+
+.contact-info {
+    flex: 1; /* Allow this to grow and shrink */
+    min-width: 300px; /* Minimum width before wrapping */
+    text-align: left; /* Align text within info to the left */
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
+    border-radius: 8px;
+}
+
+.contact-info h2 {
+    color: #4CAF50; /* Green heading for consistency */
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: left; /* Align heading to the left */
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.contact-info a {
+    color: #87CEEB; /* Lighter blue for links */
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+.contact-map {
+    flex: 1; /* Allow this to grow and shrink */
+    min-width: 300px; /* Minimum width before wrapping */
+    max-width: 600px; /* Max width for the map iframe */
+    height: 450px; /* Fixed height for the map container */
+    overflow: hidden; /* Hide any overflow from iframe */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Add some shadow to the map */
+}
+
+.contact-map iframe {
+    width: 100%; /* Make iframe fill its container */
+    height: 100%;
+    border: none; /* Remove default iframe border */
+    border-radius: 8px;
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Ensure main content has padding to not overlap with fixed header/footer if any */
+main {
+    padding-top: 20px; /* Add padding to top of main content */
+    padding-bottom: 20px; /* Add padding to bottom of main content */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-content {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: center; /* Center items when stacked */
+        gap: 30px;
+    }
+
+    .contact-info, .contact-map {
+        min-width: unset; /* Remove min-width restriction for small screens */
+        width: 100%; /* Make them full width */
+        max-width: 500px; /* Limit max width for readability */
+    }
+
+    .contact-map {
+        height: 300px; /* Adjust map height for smaller screens */
+    }
+
+    footer {
+        padding: 30px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-map {
+        height: 250px; /* Further adjust map height for very small screens */
+    }
+}
+  

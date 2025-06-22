@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pet Store</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    /* Basic Reset and Font */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+      overflow-x: hidden; /* Prevent horizontal scroll bar from appearing due to responsive design */
+    }
+
+    /* Header and Footer Styling */
+    header, footer {
+      background-color: #28a745; /* GREEN banner */
+      color: white;
+      text-align: center;
+      padding: 16px 0;
+      width: 100%; /* Ensure full width for the background */
+    }
+
+    /* Navigation Styling */
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease; /* Smooth hover effect */
+    }
+
+    nav a:hover {
+        color: #e0e0e0; /* Lighter color on hover */
+    }
+
+    /* Main Content Area */
+    main {
+      padding: 20px;
+      max-width: 1200px; /* Limit main content width for better readability */
+      margin: 0 auto; /* Center main content */
+    }
+
+    /* Filters Section */
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap; /* Allow filters to wrap on smaller screens */
+    }
+
+    .filters label {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    /* Pet List Container */
+    .pet-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* Pet Card Styling */
+    .pet-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px;
+      width: 200px; /* Fixed width for card */
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+    }
+
+    .pet-card:hover {
+        transform: translateY(-5px); /* Lift card on hover */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .pet-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .pet-card h3 {
+        margin: 5px 0;
+        color: #333;
+    }
+
+    .pet-card p {
+        color: #555;
+        font-size: 0.9em;
+    }
+
+    /* Contact Section Layout (Footer Internal Content) */
+    .contact-content {
+      display: flex; /* Enable Flexbox for children */
+      flex-direction: column; /* Default to vertical stacking on small screens */
+      align-items: center; /* Center items horizontally when stacked */
+      gap: 30px; /* Space between contact info and map */
+      padding: 30px 20px; /* Padding inside the green footer for content */
+      max-width: 1200px; /* Limit the content width */
+      margin: 0 auto; /* Center the content within the footer */
+    }
+
+    .contact-info {
+      text-align: center; /* Center text by default on small screens */
+      flex-shrink: 0; /* Prevent shrinking on larger screens */
+    }
+
+    .contact-info h2 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.8em;
+    }
+
+    .contact-info p {
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    .contact-info a {
+        color: white;
+        text-decoration: none; /* No underline by default */
+        transition: text-decoration 0.3s ease;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+
+    .contact-map {
+      width: 100%; /* Map container takes full width on small screens */
+      display: flex; /* Use flex to center iframe within its container */
+      justify-content: center;
+      flex-shrink: 0; /* Prevent shrinking on larger screens */
+    }
+
+    .contact-map iframe {
+        border: 0;
+        width: 100%; /* Make iframe fill its container */
+        max-width: 600px; /* Max width for the map itself */
+        height: 400px; /* Fixed height for the map */
+        border-radius: 8px; /* Rounded corners for the map iframe */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for the map */
+    }
+
+    /* Media Query for Larger Screens (Side-by-side layout) */
+    @media (min-width: 768px) {
+      .contact-content {
+        flex-direction: row; /* Arrange children horizontally */
+        justify-content: space-around; /* Distribute space around items */
+        align-items: flex-start; /* Align items to the top */
+        padding: 40px 20px; /* More padding on larger screens */
+      }
+
+      .contact-info {
+        flex: 1; /* Allow contact info to take available space */
+        text-align: right; /* Align text to the right when side-by-side */
+        padding-right: 40px; /* Space between info and map */
+        max-width: 45%; /* Control info width */
+      }
+
+      .contact-map {
+        flex: 1; /* Allow map to take available space */
+        text-align: left; /* Align map to the left */
+        padding-left: 40px; /* Space between info and map */
+        max-width: 55%; /* Control map container width */
+      }
+    }
+
+    /* Copyright Text */
+    .copyright {
+        margin-top: 20px;
+        font-size: 0.9em;
+        padding-bottom: 15px; /* Add some padding at the very bottom */
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Our Pet Store</h1>
+    <nav>
+      <a href="#top">Home</a> <!-- Added #top for home scroll -->
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Filters -->
+    <div class="filters">
+      <label><input type="checkbox" id="type-dogs" name="pet-type" value="Dog" checked> Dogs</label>
+      <label><input type="checkbox" id="type-cats" name="pet-type" value="Cat" checked> Cats</label>
+      <label><input type="checkbox" id="type-birds" name="pet-type" value="Bird" checked> Birds</label>
+      <label><input type="checkbox" id="type-capybaras" name="pet-type" value="Capybara" checked> Capybaras</label>
+    </div>
+
+    <!-- Pet Cards -->
+    <div class="pet-list" id="pet-list"></div>
+  </main>
+
+  <!-- Google Map and Contact Info within the footer -->
+  <footer id="contact">
+    <div class="contact-content">
+      <div class="contact-info">
+        <h2>Contact Us</h2>
+        <p><strong>Assumption University Suvarnabhumi Campus</strong></p>
+        <p>88 Moo 8 Bang Na-Trad Km. 26,</p>
+        <p>Bang Sao Thong, Samut Prakan 10570</p>
+        <p>Thailand</p>
+        <p>Phone: +66 2 783 2222</p>
+        <p>Email: <a href="mailto:abac@au.edu">abac@au.edu</a></p>
+      </div>
+      <div class="contact-map">
+        <!-- CORRECTED IFRAME TAG for Google Maps Embed -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.335955627231!2d100.77884147596001!3d13.693158694084517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d619cf7b19889%3A0x6b09930f30509a25!2sAssumption%20University%20Suvarnabhumi%20Campus!5e0!3m2!1sen!2sth!4v1719055979770!5m2!1sen!2sth"
+          width="600"
+          height="450"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+    <p class="copyright">© 2025 Our Pet Store. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const pets = [
+      { name: "Buddy", type: "Dog", image: "img/dogs/dog01.jpg" },
+      { name: "Whiskers", type: "Cat", image: "img/cats/cat01.jpg" },
+      { name: "Charlie", type: "Dog", image: "img/dogs/dog02.jpg" },
+      { name: "Charlie", type: "Dog", image: "img/dogs/dog03.jpg" },
+      { name: "Tweety", type: "Bird", image: "img/birds/bird01.jpg" },
+      { name: "Tweety", type: "Bird", image: "img/birds/bird02.jpg" },
+      { name: "Luna", type: "Cat", image: "img/cats/cat02.jpg" },
+      { name: "Luna", type: "Cat", image: "img/cats/cat03.jpg" },
+      { name: "Capy", type: "Capybara", image: "img/capybaras/capybara01.jpg" },
+      { name: "Capy", type: "Capybara", image: "img/capybaras/capybara02.jpg" }
+    ];
+
+    function loadPets() {
+      const selectedTypes = $("input[name='pet-type']:checked").map(function () {
+        return this.value;
+      }).get();
+
+      const filteredPets = pets.filter(pet => selectedTypes.includes(pet.type));
+
+      $("#pet-list").empty();
+
+      if (filteredPets.length === 0) {
+        $("#pet-list").append('<p style="width: 100%; text-align: center; color: #888;">No pets found for the selected types.</p>');
+      } else {
+        filteredPets.forEach(pet => {
+          $("#pet-list").append(`
+            <div class="pet-card">
+              <img src="${pet.image}" alt="${pet.name}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/cccccc/333333?text=Image+Not+Found';" />
+              <h3>${pet.name}</h3>
+              <p>Type: ${pet.type}</p>
+            </div>
+          `);
+        });
+      }
+    }
+
+    $(document).ready(function () {
+      // Event listener for pet type filters
+      $("input[name='pet-type']").change(loadPets);
+      loadPets(); // Initial load of pets
+
+      // Smooth scrolling for navigation links
+      $('nav a').on('click', function(e) {
+        // Prevent default anchor click behavior
+        e.preventDefault();
+
+        // Get the target hash from the href attribute
+        const targetId = $(this).attr('href');
+
+        // Check if the target is '#top' to scroll to the very top
+        if (targetId === '#top') {
+          $('html, body').animate({
+            scrollTop: 0
+          }, 800); // 800ms for smooth scroll
+        } else {
+          // Scroll to the target element
+          $('html, body').animate({
+            scrollTop: $(targetId).offset().top
+          }, 800); // 800ms for smooth scroll
+        }
+      });
+    });
+  </script>
+</body>
+</html>

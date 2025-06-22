@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Pets - Yoonie's Pet Store</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 12px 0;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    main {
+      padding: 20px;
+    }
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .pet-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .pet-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px;
+      width: 200px;
+      text-align: center;
+    }
+    .pet-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>All Pets at Yoonie's Pet Store</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="pets.html">All Pets</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="filters">
+      <label><input type="checkbox" id="type-dogs" name="pet-type" value="Dog" checked> Dogs</label>
+      <label><input type="checkbox" id="type-cats" name="pet-type" value="Cat" checked> Cats</label>
+      <label><input type="checkbox" id="type-birds" name="pet-type" value="Bird" checked> Birds</label>
+      <label><input type="checkbox" id="type-capybaras" name="pet-type" value="Capybara" checked> Capybaras</label>
+    </div>
+
+    <div class="pet-list" id="pet-list"></div>
+  </main>
+
+  <footer>
+    <p>Contact us at: info@petstore.com</p>
+    <p>&copy; 2025 Yoonie's Pet Store</p>
+  </footer>
+
+  <script>
+    const pets = [
+      { name: "Buddy", type: "Dog", image: "https://placedog.net/400/300?id=1" },
+      { name: "Whiskers", type: "Cat", image: "https://placekitten.com/400/300" },
+      { name: "Charlie", type: "Dog", image: "https://placedog.net/400/300?id=2" },
+      { name: "Tweety", type: "Bird", image: "https://upload.wikimedia.org/wikipedia/commons/3/32/Yellow_Canary.jpg" },
+      { name: "Luna", type: "Cat", image: "https://placekitten.com/401/301" },
+      { name: "Capy", type: "Capybara", image: "https://upload.wikimedia.org/wikipedia/commons/6/6b/Capybara_%28Hydrochoerus_hydrochaeris%29.JPG" }
+    ];
+
+    function loadPets() {
+      const selectedTypes = $("input[name='pet-type']:checked").map(function () {
+        return this.value;
+      }).get();
+
+      const filteredPets = pets.filter(pet => selectedTypes.includes(pet.type));
+      $("#pet-list").empty();
+
+      filteredPets.forEach(pet => {
+        $("#pet-list").append(`
+          <div class="pet-card">
+            <img src="${pet.image}" alt="${pet.name}" />
+            <h3>${pet.name}</h3>
+            <p>Type: ${pet.type}</p>
+          </div>
+        `);
+      });
+    }
+
+    $(document).ready(function () {
+      $("input[name='pet-type']").change(loadPets);
+      loadPets();
+    });
+  </script>
+
+</body>
+</html>
